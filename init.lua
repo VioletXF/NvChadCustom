@@ -1,7 +1,6 @@
 local autocmd = vim.api.nvim_create_autocmd
 local config_group = vim.api.nvim_create_augroup('MyConfigGroup', {})
 
-
 autocmd("VimEnter", {
   callback = function()
 
