@@ -31,7 +31,10 @@ return {
     end
   },
   ["goolord/alpha-nvim"] = {
-    disable = false
+    disable = false,
+    config = function()
+      require"custom.configs.alpha" 
+    end 
   },
   ["glepnir/dashboard-nvim"] = {
     disable = true,
