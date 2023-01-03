@@ -27,17 +27,20 @@ return {
       db.session_auto_save_on_exit = true
       db.custom_center = {
         {
-          desc = "SessionLoad",
+          desc = "Restore latest session",
           shortcurt = "SPC s l",
-          action = "SessionLoad"
+          action = function()
+            vim.cmd('SessionLoad')
+            vim.cmd('NvimTreeOpen')
+          end
         }
       }
     end
   },
   ["kyazdani42/nvim-tree.lua"] = {
+    cmd = {"NvimTreeOpen", "NvimTreeClose", "NvimTreeToggle", "NvimTreeFocus", "NvimTreeRefresh", "NvimTreeClipboard", "NvimTreeFindFile", "NvimTreeFindFileToggle", "NvimTreeResize", "NvimTreeCollapse", "NvimTreeCollapseKeepBuffers"},
     override_options = function()
       return {
-        open_on_setup = true,
         diagnostics = {
           enable = true,
           show_on_dirs = true,
