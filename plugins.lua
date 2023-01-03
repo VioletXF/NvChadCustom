@@ -1,5 +1,25 @@
 return {
   ["github/copilot.vim"] = {},
+  ["junegunn/fzf"] = {},
+  ["junegunn/fzf.vim"] = {},
+  ["nvim-telescope/telescope-fzf-native.nvim"] = {
+    run = "make"
+  },
+  ["nvim-telescope/telescope-project.nvim"] = {},
+  ["sudormrfbin/cheatsheet.nvim"] = {
+    requires = {
+      {'nvim-telescope/telescope.nvim'},
+      {'nvim-lua/popup.nvim'},
+      {'nvim-lua/plenary.nvim'},
+    }
+  },
+  ["Pocco81/true-zen.nvim"] = {
+    config = function()
+      require("true-zen").setup{
+
+      }
+    end
+  },
   ["glepnir/dashboard-nvim"] = {
     config = function()
       local db = require('dashboard')
