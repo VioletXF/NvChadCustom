@@ -74,8 +74,8 @@ return {
     run = "npm install --production"
   },
   ["iamcco/markdown-preview.nvim"] = {
-    run = function() vim.fn["mkdp#util#install"]() end,
-    config = function() vim.g.mkdp_auto_close = 0 end
+    ft = { "markdown" },
+    run = "cd app && yarn install",
   },
   ["neovim/nvim-lspconfig"] = false,
 }
