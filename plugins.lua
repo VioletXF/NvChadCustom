@@ -20,14 +20,28 @@ return {
       }
     end
   },
+  ["Shatur/neovim-session-manager"] = {
+    requires = {
+      {'nvim-lua/plenary.nvim'}
+    },
+    config = function()
+      require("session_manager").setup({
+        autoload_mode = require("session_manager.config").AutoloadMode.CurrentDir,
+      })
+    end
+  },
+  ["goolord/alpha-nvim"] = {
+    disable = false
+  },
   ["glepnir/dashboard-nvim"] = {
+    disable = true,
     config = function()
       local db = require('dashboard')
       db.session_directory = "~/.nvimsessions"
       db.session_auto_save_on_exit = true
       db.custom_center = {
         {
-          desc = "Restore latest session",
+          desc = "SessionLoad",
           shortcurt = "SPC s l",
           action = function()
             vim.cmd('SessionLoad')

@@ -1,10 +1,16 @@
 local autocmd = vim.api.nvim_create_autocmd
-local nvimtreeapi = require("nvim-tree.api")
-local NvimTreeEvent = nvimtreeapi.events.Event
+local config_group = vim.api.nvim_create_augroup('MyConfigGroup', {})
 
 
 autocmd("VimEnter", {
   callback = function()
-    vim.cmd('SessionLoad')
+
+  end
+})
+autocmd('User', {
+  pattern = 'SessionLoadPost',
+  group = config_group,
+  callback = function()
+    require("nvim-tree").toggle(false, true)
   end
 })
