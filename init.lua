@@ -13,3 +13,5 @@ autocmd('User', {
     require("nvim-tree").toggle(false, true)
   end
 })
+
+

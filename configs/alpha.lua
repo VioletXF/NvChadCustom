@@ -37,21 +37,33 @@ end
 
 -- dynamic header padding
 local fn = vim.fn
-local marginTopPercent = 0.3
+local marginTopPercent = 0.05
 local headerPadding = fn.max { 2, fn.floor(fn.winheight(0) * marginTopPercent) }
 
 local options = {
 
-  header = {
+  headerUpper = {
     type = "text",
     val = {
-        [[                               __                ]],
-        [[  ___     ___    ___   __  __ /\_\    ___ ___    ]],
-        [[ / _ `\  / __`\ / __`\/\ \/\ \\/\ \  / __` __`\  ]],
-        [[/\ \/\ \/\  __//\ \_\ \ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
-        [[\ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\]],
-        [[ \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
+[[                                                  ]],
+[[                                                  ]],
+[[                                                  ]],
+[[         .coooxO0Ox:.      ;oooodkOOx'            ]],
+[[          ....lNMNo.        ....'kMM0'            ]],
+[[              :NMNc             .xMMO.            ]],
+[[              :NMNc             .xMMO.            ]],
+[[              :NMNc             .xMMO.            ]],
+[[              .lol'              ;oo:.            ]],
+[[                                                  ]],
     },
+--    val = {
+--        [[                               __                ]],
+--        [[  ___     ___    ___   __  __ /\_\    ___ ___    ]],
+--        [[ / _ `\  / __`\ / __`\/\ \/\ \\/\ \  / __` __`\  ]],
+--        [[/\ \/\ \/\  __//\ \_\ \ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
+--        [[\ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\]],
+--        [[ \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
+--    },
     opts = {
       position = "center",
       hl = "Type",
@@ -59,13 +71,31 @@ local options = {
   },
   dirname = {
     type = "text",
-    val = vim.fn.fnamemodify(vim.fn.getcwd(), ":~:."),
+    val = vim.fn.fnamemodify(vim.fn.getcwd(), ":t"),
     opts = {
       position = "center",
       hl = "Type",
     }
   },
+headerLower = {
+    type = "text",
+    val = {
+[[                                                  ]],
+[[                                .cl.              ]],
+[[                              .;kKo.              ]],
+[[                      ;l::::cdO0x;                ]],
+[[                     .;oxxxxdl:.                  ]],
+[[                                                  ]],
+[[                                                  ]],
+[[                                                  ]],
 
+    },
+    opts = {
+      position = "center",
+      hl = "Type",
+    },
+
+  },
   buttons = {
     type = "group",
     val = {
@@ -90,9 +120,10 @@ options = require("core.utils").load_override(options, "goolord/alpha-nvim")
 alpha.setup {
   layout = {
     options.headerPaddingTop,
-    options.header,
-    options.headerPaddingBottom,
+    options.headerUpper,
     options.dirname,
+    options.headerLower,
+    options.headerPaddingBottom,
     options.buttons,
   },
   opts = {},
