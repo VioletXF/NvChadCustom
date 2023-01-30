@@ -2,7 +2,12 @@ local M = {}
 
 M.general = {
   i = {},
-  n = {},
+  n = {
+    ["gr"] = {
+      "<cmd>TroubleToggle lsp_references<cr>",
+    },
+    ["<leader>xx"] = { "<cmd>TroubleToggle<cr>" },
+  },
   v = {},
   x = {},
   t = {},
