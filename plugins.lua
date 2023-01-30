@@ -58,7 +58,11 @@ return {
       require "custom.configs.alpha"
     end,
   },
-
+  ["NvChad/nvterm"] = {
+    override_options = function()
+      return require "custom.configs.nvterm"
+    end,
+  },
   ["nvim-tree/nvim-tree.lua"] = {
     cmd = {
       "NvimTreeOpen",
@@ -88,6 +92,11 @@ return {
           enable = true,
           ignore = false,
           timeout = 500,
+        },
+        actions = {
+          open_file = {
+            resize_window = false,
+          },
         },
         renderer = {
           highlight_git = true,
