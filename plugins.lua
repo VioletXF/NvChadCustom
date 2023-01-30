@@ -1,8 +1,10 @@
 return {
 
+  ["nvim-tree/nvim-web-devicons"] = {
+    after = false,
+    config = function() end,
+  },
   ["github/copilot.vim"] = {},
-  ["junegunn/fzf"] = {},
-  ["junegunn/fzf.vim"] = {},
   ["nvim-telescope/telescope-fzf-native.nvim"] = {
     run = "make",
   },
@@ -125,8 +127,8 @@ return {
   },
   ["lbrayner/vim-rzip"] = {},
   ["hrsh7th/nvim-cmp"] = {
-    config = function()
-      require "custom.configs.cmp"
+    override_options = function()
+      return require "custom.configs.cmp"
     end,
   },
   ["neovim/nvim-lspconfig"] = {
@@ -142,6 +144,18 @@ return {
     ft = { "markdown" },
     run = "cd app && yarn install",
   },
+  ["nvim-treesitter/nvim-treesitter"] = {
+    override_options = function()
+      return require "custom.configs.treesitter"
+    end,
+  },
+  ["ibhagwan/fzf-lua"] = {
+    after = "nvim-web-devicons",
+    config = function()
+      require "custom.configs.fzf-lua"
+    end,
+  },
+
   ["nvim-telescope/telescope.nvim"] = {
     cmd = "Telescope",
     config = function()
