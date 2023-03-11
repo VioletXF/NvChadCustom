@@ -4,7 +4,35 @@ return {
     after = false,
     config = function() end,
   },
-  ["github/copilot.vim"] = {},
+  ["zbirenbaum/copilot.lua"] = {
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup {
+        suggestion = { enabled = false, auto_trigger = true },
+        panel = {
+          enabled = true,
+          keymap = {
+            jump_prev = "<S-Tab>",
+            jump_next = "<Tab>",
+          },
+        },
+      }
+    end,
+  },
+  ["zbirenbaum/copilot-cmp"] = {
+    after = { "copilot.lua" },
+    config = function()
+      require("copilot_cmp").setup {
+        method = "getPanelCompletions",
+        formatters = {
+          label = require("copilot_cmp.format").format_label_text,
+          insert_text = require("copilot_cmp.format").format_insert_text,
+          preview = require("copilot_cmp.format").deindent,
+        },
+      }
+    end,
+  },
   ["nvim-telescope/telescope-fzf-native.nvim"] = {
     run = "make",
   },
@@ -127,8 +155,8 @@ return {
   },
   ["lbrayner/vim-rzip"] = {},
   ["hrsh7th/nvim-cmp"] = {
-    override_options = function()
-      return require "custom.configs.cmp"
+    config = function()
+      require "custom.configs.cmp"
     end,
   },
   ["neovim/nvim-lspconfig"] = {
