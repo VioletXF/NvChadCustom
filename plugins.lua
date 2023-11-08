@@ -1,10 +1,8 @@
 return {
 
-  ["nvim-tree/nvim-web-devicons"] = {
-    after = false,
-    config = function() end,
-  },
-  ["zbirenbaum/copilot.lua"] = {
+  {
+    "zbirenbaum/copilot.lua",
+    lazy = false,
     cmd = "Copilot",
     event = "InsertEnter",
     config = function()
@@ -20,7 +18,9 @@ return {
       }
     end,
   },
-  ["zbirenbaum/copilot-cmp"] = {
+  {
+    "zbirenbaum/copilot-cmp",
+    lazy = false,
     after = { "copilot.lua" },
     config = function()
       require("copilot_cmp").setup {
@@ -33,18 +33,21 @@ return {
       }
     end,
   },
-  ["nvim-telescope/telescope-fzf-native.nvim"] = {
-    run = "make",
-  },
-  ["nvim-telescope/telescope-project.nvim"] = {},
-  ["williamboman/mason.nvim"] = {
+  { "nvim-telescope/telescope-fzf-native.nvim", lazy = false, build = "make" },
+  { "nvim-telescope/telescope-project.nvim", lazy = false },
+  {
+    "williamboman/mason.nvim",
+    lazy = false,
     config = function()
       require "plugins.configs.mason"
       require("mason-lspconfig").setup {}
     end,
   },
-  ["folke/trouble.nvim"] = {
-    requires = "nvim-tree/nvim-web-devicons",
+  {
+    "folke/trouble.nvim",
+    lazy = false,
+
+    dependencies = "nvim-tree/nvim-web-devicons",
     config = function()
       require("trouble").setup {
         position = "top",
@@ -54,38 +57,56 @@ return {
       }
     end,
   },
-  ["folke/lsp-colors.nvim"] = {},
-  ["williamboman/mason-lspconfig.nvim"] = {},
-  ["jose-elias-alvarez/null-ls.nvim"] = {
+  { "folke/lsp-colors.nvim", lazy = false },
+  { "williamboman/mason-lspconfig.nvim", lazy = false },
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    lazy = false,
+
     after = "nvim-lspconfig",
     config = function()
       require "custom.configs.null-ls"
     end,
   },
-  ["lewis6991/hover.nvim"] = {
+  {
+    "lewis6991/hover.nvim",
+    lazy = false,
+
     config = function()
       require "custom.configs.hover"
     end,
   },
-  ["lewis6991/gitsigns.nvim"] = {
+  {
+    "lewis6991/gitsigns.nvim",
+    lazy = false,
+
     override_options = function()
       return require "custom.configs.gitsigns"
     end,
   },
-  ["sudormrfbin/cheatsheet.nvim"] = {
-    requires = {
+  {
+    "sudormrfbin/cheatsheet.nvim",
+    lazy = false,
+
+    dependencies = {
       { "nvim-telescope/telescope.nvim" },
       { "nvim-lua/popup.nvim" },
       { "nvim-lua/plenary.nvim" },
     },
   },
-  ["Pocco81/true-zen.nvim"] = {
+  {
+    "Pocco81/true-zen.nvim",
+    lazy = false,
+
     config = function()
       require("true-zen").setup {}
     end,
   },
-  ["Shatur/neovim-session-manager"] = {
-    requires = {
+  {
+    "Shatur/neovim-session-manager",
+    lazy = false,
+
+    dependencies = {
       { "nvim-lua/plenary.nvim" },
     },
     config = function()
@@ -94,18 +115,19 @@ return {
       }
     end,
   },
-  ["goolord/alpha-nvim"] = {
-    disable = false,
-    config = function()
-      require "custom.configs.alpha"
-    end,
-  },
-  ["NvChad/nvterm"] = {
+
+  {
+    "NvChad/nvterm",
+    lazy = false,
+
     override_options = function()
       return require "custom.configs.nvterm"
     end,
   },
-  ["nvim-tree/nvim-tree.lua"] = {
+  {
+    "nvim-tree/nvim-tree.lua",
+    lazy = false,
+
     cmd = {
       "NvimTreeOpen",
       "NvimTreeClose",
@@ -119,9 +141,8 @@ return {
       "NvimTreeCollapse",
       "NvimTreeCollapseKeepBuffers",
     },
-    override_options = function()
+    opts = function()
       return {
-        open_on_setup = false,
         diagnostics = {
           enable = true,
           show_on_dirs = true,
@@ -153,49 +174,68 @@ return {
       }
     end,
   },
-  ["lbrayner/vim-rzip"] = {},
-  ["hrsh7th/nvim-cmp"] = {
+  { "lbrayner/vim-rzip", lazy = false },
+  {
+    "hrsh7th/nvim-cmp",
+    lazy = false,
+
     config = function()
       require "custom.configs.cmp"
     end,
   },
-  ["neovim/nvim-lspconfig"] = {
+  {
+    "neovim/nvim-lspconfig",
+    lazy = false,
+
     config = function()
       require "plugins.configs.lspconfig"
       require "custom.configs.lspconfig"
     end,
   },
-  ["yardnsm/vim-import-cost"] = {
-    run = "npm install --production",
-  },
-  ["iamcco/markdown-preview.nvim"] = {
+  { "yardnsm/vim-import-cost", lazy = false, build = "npm install --production" },
+  {
+    "iamcco/markdown-preview.nvim",
+    lazy = false,
+
     ft = { "markdown" },
-    run = "cd app && yarn install",
+    build = "cd app && yarn install",
   },
-  ["nvim-treesitter/nvim-treesitter"] = {
+  {
+    "nvim-treesitter/nvim-treesitter",
+    lazy = false,
+
     override_options = function()
       return require "custom.configs.treesitter"
     end,
   },
-  ["ibhagwan/fzf-lua"] = {
+  {
+    "ibhagwan/fzf-lua",
+    lazy = false,
+
     after = "nvim-web-devicons",
     config = function()
       require "custom.configs.fzf-lua"
     end,
   },
 
-  ["nvim-telescope/telescope.nvim"] = {
+  {
+    "nvim-telescope/telescope.nvim",
+    lazy = false,
+
     cmd = "Telescope",
     config = function()
       require "plugins.configs.telescope"
     end,
   },
-  ["jackMort/ChatGPT.nvim"] = {
+  {
+    "jackMort/ChatGPT.nvim",
+    lazy = false,
+
     after = "nvim-lspconfig",
     config = function()
       require("chatgpt").setup {}
     end,
-    requires = {
+    dependencies = {
       { "MunifTanjim/nui.nvim" },
       { "nvim-lua/plenary.nvim" },
       { "nvim-telescope/telescope.nvim" },

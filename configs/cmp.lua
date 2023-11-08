@@ -1,19 +1,36 @@
-local present, cmp = pcall(require, "cmp")
+local cmp = require "cmp"
 
-if not present then
-  return
-end
+dofile(vim.g.base46_cache .. "cmp")
 
-require("base46").load_highlight "cmp"
+local cmp_ui = require("nvconfig").ui.cmp
+local cmp_style = cmp_ui.style
 
-vim.o.completeopt = "menu,menuone,noselect"
-local has_words_before = function()
-  if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
-    return false
-  end
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match "^%s*$" == nil
-end
+local field_arrangement = {
+  atom = { "kind", "abbr", "menu" },
+  atom_colored = { "kind", "abbr", "menu" },
+}
+
+local formatting_style = {
+  -- default fields order i.e completion word + item.kind + item.kind icons
+  fields = field_arrangement[cmp_style] or { "abbr", "kind", "menu" },
+
+  format = function(_, item)
+    local icons = require "nvchad.icons.lspkind"
+    local icon = (cmp_ui.icons and icons[item.kind]) or ""
+
+    if cmp_style == "atom" or cmp_style == "atom_colored" then
+      icon = " " .. icon .. " "
+      item.menu = cmp_ui.lspkind_text and "   (" .. item.kind .. ")" or ""
+      item.kind = icon
+    else
+      icon = cmp_ui.lspkind_text and (" " .. icon .. " ") or icon
+      item.kind = string.format("%s %s", icon, cmp_ui.lspkind_text and item.kind or "")
+    end
+
+    return item
+  end,
+}
+
 local function border(hl_name)
   return {
     { "╭", hl_name },
@@ -27,68 +44,30 @@ local function border(hl_name)
   }
 end
 
-local cmp_window = require "cmp.utils.window"
-
-cmp_window.info_ = cmp_window.info
-cmp_window.info = function(self)
-  local info = self:info_()
-  info.scrollable = false
-  return info
-end
-
 local options = {
+  completion = {
+    completeopt = "menu,menuone",
+  },
+
   window = {
     completion = {
-      border = border "CmpBorder",
-      winhighlight = "Normal:CmpPmenu,CursorLine:PmenuSel,Search:None",
+      side_padding = (cmp_style ~= "atom" and cmp_style ~= "atom_colored") and 1 or 0,
+      winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:PmenuSel",
+      scrollbar = false,
     },
     documentation = {
       border = border "CmpDocBorder",
+      winhighlight = "Normal:CmpDoc",
     },
-  },
-  completion = {
-    keyword_length = 0,
-    autocomplete = {
-      require("cmp.types").cmp.TriggerEvent.InsertEnter,
-      require("cmp.types").cmp.TriggerEvent.TextChanged,
-    },
-  },
-  experimental = {
-    native_menu = false,
-    ghost_text = true,
   },
   snippet = {
     expand = function(args)
       require("luasnip").lsp_expand(args.body)
     end,
   },
-  formatting = {
-    format = function(_, vim_item)
-      local icons = require("nvchad_ui.icons").lspkind
-      vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
-      return vim_item
-    end,
-  },
-  sorting = {
-    priority_weight = 2,
-    comparators = {
-      require("copilot_cmp.comparators").prioritize,
-      require("copilot_cmp.comparators").score,
 
-      -- Below is the default comparitor list and order for nvim-cmp
-      cmp.config.compare.offset,
-      -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
-      cmp.config.compare.exact,
-      cmp.config.compare.score,
-      cmp.config.compare.recently_used,
-      cmp.config.compare.locality,
-      cmp.config.compare.kind,
-      cmp.config.compare.sort_text,
-      cmp.config.compare.length,
-      cmp.config.compare.order,
-    },
-  },
-  mapping = {
+  formatting = formatting_style,
+    mapping = {
     ["<C-p>"] = cmp.mapping.select_prev_item(),
     ["<C-n>"] = cmp.mapping.select_next_item(),
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
@@ -129,4 +108,8 @@ local options = {
   },
 }
 
-cmp.setup(options)
+if cmp_style ~= "atom" and cmp_style ~= "atom_colored" then
+  options.window.completion.border = border "CmpBorder"
+end
+
+return options
