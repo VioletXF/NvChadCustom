@@ -3,7 +3,7 @@ local M = {}
 M.options = {}
 
 M.ui = {
-  theme = "aquarium"
+  theme = "nightfox"
 }
 
 M.plugins = "custom.plugins"

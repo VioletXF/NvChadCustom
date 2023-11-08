@@ -80,7 +80,7 @@ return {
     "lewis6991/gitsigns.nvim",
     lazy = false,
 
-    override_options = function()
+    opts = function()
       return require "custom.configs.gitsigns"
     end,
   },
@@ -120,7 +120,7 @@ return {
     "NvChad/nvterm",
     lazy = false,
 
-    override_options = function()
+    opts = function()
       return require "custom.configs.nvterm"
     end,
   },
@@ -179,7 +179,7 @@ return {
     "hrsh7th/nvim-cmp",
     lazy = false,
 
-    config = function()
+    opts = function()
       require "custom.configs.cmp"
     end,
   },
@@ -204,7 +204,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     lazy = false,
 
-    override_options = function()
+    opts = function()
       return require "custom.configs.treesitter"
     end,
   },
