@@ -32,5 +32,17 @@ M.general = {
     },
   },
 }
+M.terminal = {
+  n = {
+    ["<C-c>"] = {
+      "<C-c>", -- override NvChad's default config
+    },
+  },
+  t = {
 
+    ["<ESC>"] = {
+      "<ESC>", -- override NvChad's default config
+    },
+  },
+}
 return M
