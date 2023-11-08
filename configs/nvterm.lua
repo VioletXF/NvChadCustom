@@ -15,7 +15,7 @@ return {
     },
   },
   behavior = {
-    close_on_exit = true,
-    auto_insert = false,
+    close_on_exit = false,
+    auto_insert = true,
   },
 }

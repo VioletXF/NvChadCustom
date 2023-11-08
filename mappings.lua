@@ -10,7 +10,7 @@ M.general = {
     ["<C-p>"] = {
       "<cmd> lua require('fzf-lua').files()<cr>",
     },
-    ["<leader>h"] = {
+    ["<leader>o"] = {
       "<cmd> lua require('fzf-lua').oldfiles()<cr>",
     },
     ["<C-g>"] = {
@@ -39,7 +39,14 @@ M.terminal = {
     },
   },
   t = {
-
+    -- on mouse mode scroll up, <Up>
+    ["<ScrollWheelUp>"] = {
+      "<Up>",
+    },
+    -- on mouse mode scroll down, <Down>
+    ["<ScrollWheelDown>"] = {
+      "<Down>",
+    },
     ["<ESC>"] = {
       "<ESC>", -- override NvChad's default config
     },
