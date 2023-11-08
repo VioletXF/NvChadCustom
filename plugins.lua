@@ -2,26 +2,20 @@ return {
 
   {
     "zbirenbaum/copilot.lua",
-    lazy = false,
     cmd = "Copilot",
     event = "InsertEnter",
     config = function()
       require("copilot").setup {
-        suggestion = { enabled = false, auto_trigger = true },
+        suggestion = { enabled = false },
         panel = {
-          enabled = true,
-          keymap = {
-            jump_prev = "<S-Tab>",
-            jump_next = "<Tab>",
-          },
+          enabled = false,
         },
       }
     end,
   },
   {
     "zbirenbaum/copilot-cmp",
-    lazy = false,
-    after = { "copilot.lua" },
+    dependencies = { { "copilot.lua" } },
     config = function()
       require("copilot_cmp").setup {
         method = "getPanelCompletions",
@@ -180,7 +174,10 @@ return {
     lazy = false,
 
     opts = function()
-      require "custom.configs.cmp"
+      return require "custom.configs.cmp"
+    end,
+    config = function(_, opts)
+      require("cmp").setup(opts)
     end,
   },
   {
